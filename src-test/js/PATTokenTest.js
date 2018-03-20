@@ -45,5 +45,30 @@ tests.push ({
           "PATToken",
           test.patTokenContract,
           test.tx);
+
+        assertEquals (
+          'test.patToken.name ()',
+          "Pangea Arbitration Token",
+          test.patToken.name ());
+
+        assertEquals (
+          'test.patToken.symbol ()',
+          "PAT",
+          test.patToken.symbol ());
+
+        assertBNEquals (
+          'test.patToken.decimals ()',
+          18,
+          test.patToken.decimals ());
+
+        assertBNEquals (
+          'test.patToken.balanceOf (test.alice)',
+          "42000000000000000000000000000",
+          test.patToken.balanceOf (test.alice));
+
+        assertBNEquals (
+          'test.patToken.totalSupply ()',
+          "42000000000000000000000000000",
+          test.patToken.totalSupply ());
       }}
   ]});

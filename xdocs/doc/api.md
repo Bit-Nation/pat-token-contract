@@ -18,7 +18,55 @@ Deploy smart contract with given central bank address.
 
 ## 2. Methods
 
-### 2.1. totalSupply
+### 2.1. name
+
+#### Signature
+
+    function name () pure returns (string result)
+
+#### Description
+
+Return name of the token.
+May be called by anybody.
+Does not accept ether.
+
+#### Use Cases
+
+* ERC-20:Name
+
+### 2.2. symbol
+
+#### Signature
+
+    function symbol () pure returns (string result)
+
+#### Description
+
+Return symbol of the token.
+May be called by anybody.
+Does not accept ether.
+
+#### Use Cases
+
+* ERC-20:Symbol
+
+### 2.3. decimals
+
+#### Signature
+
+    function decimals () pure returns (uint8 result)
+
+#### Description
+
+Return number of decimals for the token.
+May be called by anybody.
+Does not accept ether.
+
+#### Use Cases
+
+* ERC-20:Decimals
+
+### 2.4. totalSupply
 
 #### Signature
 
@@ -36,7 +84,7 @@ Defined by ERC-20.
 
 * ERC-20:TotalSupply
 
-### 2.2. balanceOf
+### 2.5. balanceOf
 
 #### Signature
 
@@ -52,7 +100,7 @@ Defined by ERC-20.
 
 * ERC-20:BalanceOf
 
-### 2.3. transfer
+### 2.6. transfer
 
 #### Signature
 
@@ -72,7 +120,7 @@ Defined by ERC-20.
 
 * ERC-20:Transfer
 
-### 2.4. transferFrom
+### 2.7. transferFrom
 
 #### Signature
 
@@ -93,7 +141,7 @@ Defined by ERC-20.
 
 * ERC-20:TransferFrom
 
-### 2.5. approve
+### 2.8. approve
 
 #### Signature
 
@@ -114,7 +162,7 @@ Defined by ERC-20.
 
 * ERC-20:Approve
 
-### 2.6. allowance
+### 2.9. allowance
 
 #### Signature
 
