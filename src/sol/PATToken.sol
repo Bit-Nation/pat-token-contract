@@ -4,12 +4,12 @@
  */
 pragma solidity ^0.4.16;
 
-import "./StandardToken.sol";
+import "./AbstractToken.sol";
 
 /**
  * PAT Token Smart Contract.
  */
-contract PATToken is StandardToken {
+contract PATToken is AbstractToken {
   uint256 constant internal TOKENS_COUNT = 42000000000e18;
 
   /**
@@ -18,7 +18,7 @@ contract PATToken is StandardToken {
    * @param _centralBank central bank address
    */
   function PATToken (address _centralBank)
-    StandardToken (_centralBank) {
+    AbstractToken () {
     accounts [_centralBank] = TOKENS_COUNT; // Limit emission to 42G
   }
 
@@ -29,18 +29,6 @@ contract PATToken is StandardToken {
    */
   function totalSupply () constant returns (uint256 supply) {
     return TOKENS_COUNT;
-  }
-
-  /**
-   * Get number of tokens currently belonging to given owner.
-   *
-   * @param _owner address to get number of tokens currently belonging to the
-            owner of
-   * @return number of tokens currently belonging to the owner of given address
-   */
-  function balanceOf (address _owner) constant returns (uint256 balance) {
-    // Make central bank's tokens visible
-    return AbstractToken.balanceOf (_owner);
   }
 
   /**
