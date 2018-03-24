@@ -17,7 +17,40 @@ Related use cases are grouped into following functional.
 
 This functional block contains use cases required by [ERC-20](https://github.com/ethereum/EIPs/issues/20) standard.
 
-#### 1.1.1. ERC-20:TotalSupply
+#### 1.1.1. ERC-20:Name ####
+
+**Actors:** User, Smart Contract
+
+**Goal:** User wants to know name of the token
+
+##### Main Flow: #####
+
+1. User calls constant method on Smart Contract (constant method means method that does not modify blockchain state, so such method may be called locally consuming zero gas)
+2. Smart Contract returns name of the token to the User
+
+#### 1.1.2. ERC-20:Symbol ####
+
+**Actors:** User, Smart Contract
+
+**Goal:** User wants to know symbol of the token
+
+##### Main Flow: #####
+
+1. User calls constant method on Smart Contract
+2. Smart Contract returns symbol of the token to the User
+
+#### 1.1.3. ERC-20:Decimals ####
+
+**Actors:** User, Smart Contract
+
+**Goal:** User wants to know how many tokens are currently in circulation
+
+##### Main Flow: #####
+
+1. User calls constant method on Smart Contract
+2. Smart Contract returns number of decimals for the token to the User
+
+#### 1.1.4. ERC-20:TotalSupply
 
 **Actors**: *User*, *Smart Contract*
 
@@ -28,7 +61,7 @@ This functional block contains use cases required by [ERC-20](https://github.com
 1. *User* calls constant method on *Smart Contract*
 2. *Smart Contract* returns to *User* total number of tokens in circulation
 
-#### 1.1.2. ERC-20:BalanceOf
+#### 1.1.5. ERC-20:BalanceOf
 
 **Actors**: *User*, *Smart Contract*
 
@@ -39,7 +72,7 @@ This functional block contains use cases required by [ERC-20](https://github.com
 1. *User* calls constant method on *Smart Contract* providing the following information as method parameters: address to get number of tokens currently belonging to the owner of
 2. *Smart Contract* returns to *User* number of tokens currently belonging to the owner of given address
 
-#### 1.1.3. ERC-20:Transfer
+#### 1.1.6. ERC-20:Transfer
 
 **Actors**: *User*, *Smart Contract*
 
@@ -49,12 +82,10 @@ This functional block contains use cases required by [ERC-20](https://github.com
 
 1. *User* calls method on *Smart Contract* providing the following information as method parameters: address to transfer tokens to the owner of and number of tokens to transfer
 2. Token transfers are not currently frozen
-3. *User* is not central bank
-4. There are enough tokens currently belonging to *User*
-5. Destination address is not central bank address
-6. *Smart Contract* transfers requested number of tokens from *User* to the owner of given address
-7. *Smart Contract* logs tokens transfer event with the following information: address tokens were transferred from the owner of, address tokens were transferred to the owner of, and number of tokens transferred
-8. *Smart Contract* returns success indicator to *User*
+3. There are enough tokens currently belonging to *User*
+4. *Smart Contract* transfers requested number of tokens from *User* to the owner of given address
+5. *Smart Contract* logs tokens transfer event with the following information: address tokens were transferred from the owner of, address tokens were transferred to the owner of, and number of tokens transferred
+6. *Smart Contract* returns success indicator to *User*
 
 ##### Exceptional Flow #1:
 
@@ -66,51 +97,11 @@ This functional block contains use cases required by [ERC-20](https://github.com
 
 1. Same as in Main Flow
 2. Same as in Main Flow
-3. *User* is central bank
-4. Number of tokens currently in circulation plus number of tokens to transfer is not greater than maximum allowed number of tokens in circulation
-5. Destination address in not central bank address
-6. *Smart Contract* creates as many new tokens as many tokens are to be transferred
-7. *Smart Contract* transfers newly created tokens to the owner of given address
-8. *Smart Contract* logs tokens transfer event with the following information: central bank address as source address, address tokens were transferred to the owner of, and number of tokens transferred
-9. *Smart Contract* returns success indicator to *User*
-
-##### Exceptional Flow #3:
-
-1. Same as in Main Flow
-2. Same as in Main Flow
-3. Same as in Exceptional Flow #2
-4. Number of tokens currently in circulation plus number of tokens to transfer is greater than maximum allowed number of tokens in circulation
-5. *Smart Contract* returns error indicator to *User*
-
-##### Exceptional Flow #4:
-
-1. Same as in Main Flow
-2. Same as in Main Flow
-3. Same as in Exceptional Flow #2
-4. Same as in Exceptional Flow #2
-5. Destination address in central bank address
-6. *Smart Contract* returns success indicator to *User*
-
-##### Exceptional Flow #5:
-
-1. Same as in Main Flow
-2. Same as in Main Flow
 3. Same as in Main Flow
 4. There is not enough tokens currently belonging to *User*
 5. *Smart Contract* returns error indicator to *User*
 
-##### Exceptional Flow #6:
-
-1. Same as in Main Flow
-2. Same as in Main Flow
-3. Same as in Main Flow
-4. Same as in Main Flow
-5. Destination address is central bank address
-6. *Smart Contract* destroys as many tokens belonging to *User* as many tokens are to be transferred
-7. *Smart Contract* logs tokens transfer event with the following information: *User* address as source address, central bank address as destination address, and number of tokens destroyed
-8. *Smart Contract* returns success indicator to *User*
-
-#### 1.1.4. ERC-20:TransferFrom
+#### 1.1.7. ERC-20:TransferFrom
 
 **Actors**: *User*, *Smart Contract*
 
@@ -121,13 +112,11 @@ This functional block contains use cases required by [ERC-20](https://github.com
 1. *User* calls method on *Smart Contract* providing the following information as method parameters: source address, destination address, and number of tokens to transfer
 2. Token transfers are not currently frozen
 3. *User* is currently allowed to transfer requested number of tokens from the owner of source address
-4. Source address is not central bank address
-5. There are enough tokens currently belonging to the owner of source address
-6. Destination address is not central bank address
-7. *Smart Contract* transfers requested number of tokens from the owner of source address to the owner of destination address
-8. *Smart Contract* decreases by the number of tokens transferred the number of tokens *User* is allowed to transfer from the owner of source address
-9. *Smart Contract* logs token transfer event with the following information: source address, destination address, and number of tokens transferred
-10. *Smart Contract* returns success indicator to *User*
+4. There are enough tokens currently belonging to the owner of source address
+5. *Smart Contract* transfers requested number of tokens from the owner of source address to the owner of destination address
+6. *Smart Contract* decreases by the number of tokens transferred the number of tokens *User* is allowed to transfer from the owner of source address
+7. *Smart Contract* logs token transfer event with the following information: source address, destination address, and number of tokens transferred
+8. *Smart Contract* returns success indicator to *User*
 
 ##### Exceptional Flow #1:
 
@@ -142,40 +131,7 @@ This functional block contains use cases required by [ERC-20](https://github.com
 3. *User* is not currently allowed to transfer requested number of tokens from the owner of source address
 4. *Smart Contract* returns error indicator to *User*
 
-##### Exceptional flow #3:
-
-1. Same as in Main Flow
-2. Same as in Main Flow
-3. Same as in Main Flow
-4. Source address is central bank address
-5. Number of tokens currently in circulation plus number of tokens to transfer is not greater than maximum allowed number of tokens in circulation
-6. Destination address is not central bank address
-7. *Smart Contract* creates as many new tokens as many tokens are to be transferred
-8. *Smart Contract* transfers newly created tokens to the owner of given address
-9. *Smart Contract* decreases by the number of tokens created the number of tokens *User* is allowed to transfer from the owner of source address
-10. *Smart Contract* logs token transfer event with the following information: source address, destination address, and number of tokens transferred
-11. *Smart Contract* returns success indicator to *User*
-
-##### Exceptional Flow #4:
-
-1. Same as in Main Flow
-2. Same as in Main Flow
-3. Same as in Main Flow
-4. Same as in Exceptional Flow #3
-5. Number of tokens currently in circulation plus number of tokens to transfer is greater than maximum allowed number of tokens in circulation
-6. *Smart Contract* returns error indicator to *User*
-
-##### Exceptional Flow #5:
-
-1. Same as in Main Flow
-2. Same as in Main Flow
-3. Same as in Main Flow
-4. Same as in Exceptional Flow #3
-5. Same as in Exceptional Flow #3
-6. Destination address is central bank address
-7. *Smart Contract* returns success indicator to *User*
-
-##### Exceptional Flow #6:
+##### Exceptional Flow #3:
 
 1. Same as in Main Flow
 2. Same as in Main Flow
@@ -184,20 +140,7 @@ This functional block contains use cases required by [ERC-20](https://github.com
 5. There are not enough tokens currently belonging to the owner of source address
 6. *Smart Contract* returns error indicator to *User*
 
-##### Exceptional Flow #7:
-
-1. Same as in Main Flow
-2. Same as in Main Flow
-3. Same as in Main Flow
-4. Same as in Main Flow
-5. Same as in Main Flow
-6. Destination address is central bank address
-7. *Smart Contract* destroys as many tokens belonging to *User* as many tokens are to be transferred
-8. *Smart Contract* decreases by the number of tokens destroyed the number of tokens *User* is allowed to transfer from the owner of source address
-9. *Smart Contract* logs tokens transfer event with the following information: source address, destination address, and number of tokens destroyed
-10. *Smart Contract* returns success indicator to *User*
-
-#### 1.1.5. ERC-20:Approve
+#### 1.1.8. ERC-20:Approve
 
 **Actors**: *User*, *Smart Contract*
 
@@ -210,7 +153,7 @@ This functional block contains use cases required by [ERC-20](https://github.com
 3. *Smart Contract* logs token transfer approval event with the following information: *User*'s address, address the owner of was allowed to transfer tokens belonging to *User*, and number of tokens the transfer was allowed of
 4. *Smart Contract* returns success indicator to *User*
 
-#### 1.1.6. ERC-20:Allowance
+#### 1.1.9. ERC-20:Allowance
 
 **Actors**: *User*, *Smart Contract*
 
@@ -235,11 +178,4 @@ This functional block contains use cases related to smart contract administratio
 
 1. *User* deploys *Smart Contract* providing the following information as constructor arguments: central bank address
 2. *Smart Contract* remember given central bank address
-
-## 2. Limits
-
-The following limits are established:
-
-Limit                                   | Value
---------------------------------------- | -------
-Maximum number of tokens in circulation | 2^256-1
+3. *Smart Contract* creates 42000000000e18 tokens and gives them to central bank
